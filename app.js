@@ -459,9 +459,20 @@ function chooseCategory(category, manual = true) {
   );
 }
 
+function showAutoCategory() {
+  state.selectedCategory = "note";
+  elements.detectedCategory.textContent = "自动判断";
+  elements.detectedCategory.className = "category-badge auto";
+  $("[data-category]", elements.categoryPicker).forEach((button) =>
+    button.classList.remove("active")
+  );
+}
+
 function analyzeCaptureText() {
   const text = elements.captureContent.value;
-  if (!state.manualCategory || !text.trim()) {
+  if (!text.trim() && !state.manualCategory) {
+    showAutoCategory();
+  } else if (!state.manualCategory) {
     chooseCategory(classifyContent(text).category, false);
   }
   const detected = detectDate(text);

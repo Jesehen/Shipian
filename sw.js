@@ -1,4 +1,4 @@
-const CACHE_NAME = "shipian-shell-v3";
+const CACHE_NAME = "shipian-shell-v4";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -9,7 +9,10 @@ const APP_SHELL = [
   "./github-sync.js",
   "./crypto.js",
   "./manifest.webmanifest",
-  "./icons/icon.svg"
+  "./icons/icon.svg",
+  "./icons/apple-touch-icon.png",
+  "./icons/icon-192.png",
+  "./icons/icon-512.png"
 ];
 
 self.addEventListener("install", (event) => {

@@ -14,7 +14,7 @@
     />
     <link rel="manifest" href="./manifest.webmanifest" />
     <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="./icons/icon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/apple-touch-icon.png" />
     <link rel="stylesheet" href="./styles.css" />
     <title>拾片</title>
   </head>
@@ -260,7 +260,9 @@
       <form id="captureForm" method="dialog">
         <div class="sheet-handle"></div>
         <div class="sheet-heading">
-          <button type="button" class="text-button" data-close-dialog="captureDialog">取消</button>
+          <button type="button" class="sheet-close-button" data-close-dialog="captureDialog" aria-label="取消并关闭" title="取消">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 7 10 10M17 7 7 17" /></svg>
+          </button>
           <h2 id="captureTitle">保存片段</h2>
           <button type="submit" class="text-button strong">保存</button>
         </div>
@@ -270,10 +272,10 @@
           <textarea id="captureContent" rows="5" placeholder="粘贴链接、写下一句话，或记录一件事…" required></textarea>
         </label>
         <div class="detected-row">
-          <span class="category-badge note" id="detectedCategory">笔记</span>
+          <span class="category-badge auto" id="detectedCategory">自动判断</span>
           <button type="button" class="detected-reminder hidden" id="detectedReminderButton"></button>
         </div>
-        <p class="category-help">分类不准确？直接点选下面的分类，保存后也能在详情中重新编辑。</p>
+        <p class="category-help">输入后会自动判断；不准确时可直接点选，保存后也能重新编辑。</p>
         <div class="category-picker" id="categoryPicker" aria-label="内容分类">
           <button type="button" data-category="note" class="active">笔记</button>
           <button type="button" data-category="buy">想买</button>

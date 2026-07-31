@@ -349,6 +349,11 @@ svg {
   font-weight: 700;
 }
 
+.category-badge.auto {
+  background: #ecece7;
+  color: #777f79;
+}
+
 .category-badge.buy {
   background: var(--amber-soft);
   color: #a77216;
@@ -896,6 +901,28 @@ dialog::backdrop {
   justify-self: end;
 }
 
+.sheet-close-button {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  justify-self: start;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.sheet-close-button svg {
+  width: 17px;
+  height: 17px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
 .capture-field {
   display: grid;
   gap: 7px;
@@ -962,8 +989,19 @@ dialog::backdrop {
 
 .capture-grid {
   display: grid;
-  grid-template-columns: 1.35fr 0.65fr;
-  gap: 9px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+.capture-grid .capture-field {
+  min-width: 0;
+  margin-top: 12px;
+}
+
+#captureReminder,
+#captureRecurrence {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .attachment-picker {
@@ -1164,6 +1202,13 @@ dialog::backdrop {
 
 .hidden {
   display: none !important;
+}
+
+@media (min-width: 560px) {
+  .capture-grid {
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.65fr);
+    gap: 9px;
+  }
 }
 
 @media (min-width: 720px) {
