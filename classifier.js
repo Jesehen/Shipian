@@ -9,7 +9,19 @@ export const CATEGORIES = {
 const DOMAIN_RULES = [
   {
     category: "buy",
-    domains: ["taobao.com", "tmall.com", "jd.com", "smzdm.com", "amazon.", "yangkeduo.com"]
+    domains: [
+      "taobao.com",
+      "tmall.com",
+      "jd.com",
+      "smzdm.com",
+      "amazon.",
+      "yangkeduo.com",
+      "pinduoduo.com",
+      "suning.com",
+      "vip.com",
+      "dewu.com",
+      "kaola.com"
+    ]
   },
   {
     category: "watch",
@@ -20,7 +32,13 @@ const DOMAIN_RULES = [
       "douban.com",
       "iqiyi.com",
       "v.qq.com",
-      "youku.com"
+      "youku.com",
+      "mgtv.com",
+      "netflix.com",
+      "xiaohongshu.com",
+      "zhihu.com",
+      "mp.weixin.qq.com",
+      "weibo.com"
     ]
   },
   {
@@ -32,12 +50,36 @@ const DOMAIN_RULES = [
       "dianping.com",
       "trip.com",
       "ctrip.com",
-      "booking.com"
+      "booking.com",
+      "meituan.com",
+      "qunar.com",
+      "fliggy.com",
+      "mafengwo.cn",
+      "airbnb."
     ]
   }
 ];
 
 const KEYWORD_RULES = [
+  {
+    category: "note",
+    weight: 4,
+    words: [
+      "笔记",
+      "记录一下",
+      "随记",
+      "日记",
+      "灵感",
+      "想法",
+      "摘抄",
+      "金句",
+      "心得",
+      "总结",
+      "观后感",
+      "读后感",
+      "备忘"
+    ]
+  },
   {
     category: "todo",
     weight: 5,
@@ -54,7 +96,30 @@ const KEYWORD_RULES = [
       "缴费",
       "续费",
       "预约",
-      "打电话"
+      "打电话",
+      "提醒",
+      "要做",
+      "去办",
+      "办理",
+      "截止",
+      "到期",
+      "开会",
+      "会议",
+      "交作业",
+      "还款",
+      "取快递",
+      "寄快递",
+      "复诊",
+      "吃药",
+      "报名",
+      "申请",
+      "联系",
+      "发邮件",
+      "打印",
+      "报销",
+      "签到",
+      "清理",
+      "检查"
     ]
   },
   {
@@ -71,7 +136,29 @@ const KEYWORD_RULES = [
       "补货",
       "购物",
       "型号",
-      "到手价"
+      "到手价",
+      "入手",
+      "买一个",
+      "买点",
+      "加入购物车",
+      "购物车",
+      "好价",
+      "比价",
+      "降价",
+      "优惠券",
+      "领券",
+      "包邮",
+      "凑单",
+      "预售",
+      "定金",
+      "尾款",
+      "缺货",
+      "预算",
+      "尺码",
+      "配色",
+      "配置",
+      "值得买",
+      "性价比"
     ]
   },
   {
@@ -87,7 +174,28 @@ const KEYWORD_RULES = [
       "文章",
       "阅读",
       "播客",
-      "剧集"
+      "剧集",
+      "片单",
+      "影单",
+      "书单",
+      "小说",
+      "漫画",
+      "动漫",
+      "综艺",
+      "节目",
+      "课程",
+      "教程",
+      "论文",
+      "新闻",
+      "访谈",
+      "音乐",
+      "专辑",
+      "歌曲",
+      "有声书",
+      "稍后看",
+      "收藏阅读",
+      "推荐看",
+      "上映"
     ]
   },
   {
@@ -104,7 +212,33 @@ const KEYWORD_RULES = [
       "路线",
       "景点",
       "公园",
-      "展览"
+      "展览",
+      "探店",
+      "打卡",
+      "菜馆",
+      "酒吧",
+      "面包店",
+      "火锅",
+      "烧烤",
+      "景区",
+      "博物馆",
+      "美术馆",
+      "商场",
+      "夜市",
+      "徒步",
+      "露营",
+      "爬山",
+      "海边",
+      "航班",
+      "车票",
+      "门票",
+      "行程",
+      "攻略",
+      "周边游",
+      "度假",
+      "出发",
+      "导航",
+      "位置"
     ]
   }
 ];

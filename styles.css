@@ -684,6 +684,12 @@ svg {
   font-size: 0.72rem;
 }
 
+.field-help {
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
 .settings-form input,
 .capture-field input,
 .capture-field textarea,

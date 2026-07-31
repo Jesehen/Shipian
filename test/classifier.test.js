@@ -27,6 +27,26 @@ test("普通内容默认归入笔记而不是未整理", () => {
   assert.equal(result.category, "note");
 });
 
+test("扩展待办词可识别取快递", () => {
+  assert.equal(classifyContent("下班前记得去取快递").category, "todo");
+});
+
+test("扩展购物词可识别降价和购物车", () => {
+  assert.equal(classifyContent("这台相机降价后加入购物车").category, "buy");
+});
+
+test("扩展阅读影音词可识别片单和综艺", () => {
+  assert.equal(classifyContent("朋友推荐的综艺片单").category, "watch");
+});
+
+test("扩展地点词可识别博物馆和展览", () => {
+  assert.equal(classifyContent("周末去博物馆看展览").category, "go");
+});
+
+test("明确的灵感随记保持为笔记", () => {
+  assert.equal(classifyContent("灵感随记：做一个阳台小花园").category, "note");
+});
+
 test("识别明天下午三点", () => {
   const now = new Date("2026-07-31T08:00:00+08:00");
   const result = detectDate("明天下午3点提醒我", now);

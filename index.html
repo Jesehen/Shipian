@@ -183,13 +183,21 @@
           <section class="settings-group">
             <p class="section-kicker">GITHUB</p>
             <h2>私人仓库同步</h2>
-            <p class="settings-description">数据上传前会在本机加密。访问令牌和加密口令只保留到本次关闭页面。</p>
+            <p class="settings-description">数据上传前会在本机加密。访问令牌和加密口令只保留到本次关闭页面，不会写进源码。</p>
             <form id="githubForm" class="settings-form">
               <label>仓库所有者<input id="githubOwner" autocomplete="username" placeholder="例如 Jesehen" /></label>
               <label>私人仓库<input id="githubRepo" placeholder="例如 shipian-data" /></label>
               <label>分支<input id="githubBranch" value="main" /></label>
-              <label>细粒度访问令牌<input id="githubToken" type="password" autocomplete="off" placeholder="仅 Contents 读写权限" /></label>
-              <label>加密口令<input id="githubPassphrase" type="password" autocomplete="off" placeholder="至少 8 位，请妥善保管" /></label>
+              <label>
+                细粒度访问令牌
+                <input id="githubToken" type="password" autocomplete="off" placeholder="GitHub 生成的专用钥匙" />
+                <small class="field-help">不是登录密码。请在 GitHub 创建 Fine-grained token，只授权给私人数据仓库，并开启 Contents 读写。</small>
+              </label>
+              <label>
+                加密口令
+                <input id="githubPassphrase" type="password" autocomplete="off" placeholder="由你自己设定，至少 8 位" />
+                <small class="field-help">不是 GitHub 密码。换设备恢复时必须输入同一口令；遗忘后无法解密远端内容。</small>
+              </label>
               <div class="form-actions">
                 <button type="button" class="secondary-button" id="testGithubButton">测试连接</button>
                 <button type="button" class="primary-button" id="syncGithubButton">立即同步</button>
