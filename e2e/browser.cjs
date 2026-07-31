@@ -50,6 +50,8 @@ function assert(condition, message) {
   await page.getByRole("button", { name: "添加片段" }).click();
   await page.locator("#captureContent").fill("今天在路上看到很好看的晚霞");
   assert((await page.locator("#detectedCategory").innerText()) === "笔记", "普通内容被错误分类");
+  await page.locator("#categoryPicker [data-category='go']").click();
+  assert((await page.locator("#detectedCategory").innerText()) === "想去", "无法在保存前手动修改分类");
   await page.getByRole("button", { name: "保存", exact: true }).click();
 
   await page.getByRole("button", { name: "搜索", exact: true }).click();
@@ -58,6 +60,18 @@ function assert(condition, message) {
     (await page.locator("#searchResults").innerText()).includes("晚霞"),
     "搜索没有找到刚保存的笔记"
   );
+  assert(
+    (await page.locator("#searchResults").innerText()).includes("想去"),
+    "手动选择的分类没有保存"
+  );
+  await page.locator("#searchResults [data-entry-id]").click();
+  await page.getByRole("button", { name: "编辑", exact: true }).click();
+  assert(
+    await page.locator("#categoryPicker [data-category='go']").evaluate((button) => button.classList.contains("active")),
+    "编辑时没有载入已保存的分类"
+  );
+  await page.locator("#categoryPicker [data-category='note']").click();
+  await page.getByRole("button", { name: "保存", exact: true }).click();
 
   await page.screenshot({
     path: path.join(artifacts, "iphone-home-flow.png"),
@@ -85,6 +99,8 @@ function assert(condition, message) {
           "自动分类为待办",
           "日期识别并附加提醒",
           "普通内容归入笔记",
+          "保存前手动修改分类",
+          "保存后重新编辑分类",
           "提醒汇总",
           "关键词搜索",
           "Service Worker",

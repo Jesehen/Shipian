@@ -49,7 +49,6 @@ const elements = {
   pageTitle: $("#pageTitle"),
   pageEyebrow: $("#pageEyebrow"),
   storageButton: $("#storageButton"),
-  storageDot: $("#storageDot"),
   heroCaptureButton: $("#heroCaptureButton"),
   navAddButton: $("#navAddButton"),
   captureDialog: $("#captureDialog"),
@@ -762,8 +761,6 @@ async function refreshStorageUsage() {
   const percent = Math.min(100, (usage.totalBytes / MAX_CACHE_BYTES) * 100);
   elements.storageUsageLabel.textContent = `${formatBytes(usage.totalBytes)} · ${usage.entryCount} 条内容`;
   elements.storageMeterFill.style.width = `${percent}%`;
-  elements.storageDot.style.background =
-    percent > 90 ? "var(--danger)" : percent > 70 ? "var(--amber)" : "var(--sage)";
 }
 
 function githubClientFromForm() {
