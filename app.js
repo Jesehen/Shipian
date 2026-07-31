@@ -463,7 +463,7 @@ function showAutoCategory() {
   state.selectedCategory = "note";
   elements.detectedCategory.textContent = "自动判断";
   elements.detectedCategory.className = "category-badge auto";
-  $("[data-category]", elements.categoryPicker).forEach((button) =>
+  elements.categoryPicker.querySelectorAll("[data-category]").forEach((button) =>
     button.classList.remove("active")
   );
 }
