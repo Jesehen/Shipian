@@ -1,0 +1,35 @@
+{
+  "id": "./",
+  "name": "拾片",
+  "short_name": "拾片",
+  "description": "轻量、私密的生活碎片收藏与提醒工具。",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f5ee",
+  "theme_color": "#f7f5ee",
+  "categories": ["productivity", "lifestyle"],
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "快速保存",
+      "short_name": "保存",
+      "url": "./?capture=1",
+      "icons": [{ "src": "./icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    },
+    {
+      "name": "查看提醒",
+      "short_name": "提醒",
+      "url": "./?view=reminders",
+      "icons": [{ "src": "./icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }]
+    }
+  ]
+}

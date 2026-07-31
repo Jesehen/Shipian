@@ -1,0 +1,14 @@
+{
+  "name": "shipian-pwa",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test",
+    "check": "node --check app.js && node --check db.js && node --check classifier.js && node --check github-sync.js && node --check crypto.js && node --check sw.js",
+    "test:e2e": "node e2e/browser.cjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.61.1"
+  }
+}

@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7f5ee" />
+    <meta name="description" content="拾片——轻量、私密的生活碎片收藏与提醒工具。" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="拾片" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; img-src 'self' blob: data:; style-src 'self'; script-src 'self'; connect-src 'self' https://api.github.com https://raw.githubusercontent.com; object-src 'none'; base-uri 'self'; form-action 'self'"
+    />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./icons/icon.svg" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>拾片</title>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow" id="pageEyebrow">轻量 · 私密 · 可靠</p>
+          <h1 id="pageTitle">拾片</h1>
+        </div>
+        <button class="icon-button" id="storageButton" aria-label="查看存储用量">
+          <svg aria-hidden="true" viewBox="0 0 24 24">
+            <path d="M5 6.5C5 4.57 8.13 3 12 3s7 1.57 7 3.5S15.87 10 12 10 5 8.43 5 6.5Z" />
+            <path d="M5 6.5v5C5 13.43 8.13 15 12 15s7-1.57 7-3.5v-5" />
+            <path d="M5 11.5v5C5 18.43 8.13 20 12 20s7-1.57 7-3.5v-5" />
+          </svg>
+          <span class="storage-dot" id="storageDot"></span>
+        </button>
+      </header>
+
+      <main id="mainContent">
+        <section class="view active" data-view="today">
+          <section class="hero-card">
+            <div>
+              <p class="hero-kicker" id="greeting">早上好，阿颜</p>
+              <h2>今天想留下什么？</h2>
+              <p>先记下来，分类和提醒交给拾片。</p>
+            </div>
+            <button class="quick-capture" id="heroCaptureButton">
+              <span>快速记录点什么…</span>
+              <span class="quick-plus">＋</span>
+            </button>
+          </section>
+
+          <section class="section-block">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">TODAY</p>
+                <h2>今日提醒</h2>
+              </div>
+              <button class="text-button" data-go="reminders">查看全部</button>
+            </div>
+            <div class="stack-list" id="todayReminders"></div>
+          </section>
+
+          <section class="section-block">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">RECENT</p>
+                <h2>最近保存</h2>
+              </div>
+              <button class="text-button" data-go="library">全部片段</button>
+            </div>
+            <div class="card-list" id="recentEntries"></div>
+          </section>
+
+          <section class="section-block rediscover-block">
+            <div class="section-heading">
+              <div>
+                <p class="section-kicker">REDISCOVER</p>
+                <h2>重新发现</h2>
+              </div>
+              <button class="icon-button small" id="shuffleButton" aria-label="换一批">
+                <svg aria-hidden="true" viewBox="0 0 24 24">
+                  <path d="M16 3h5v5" />
+                  <path d="m4 20 5.5-5.5M21 3l-7.5 7.5" />
+                  <path d="M16 21h5v-5" />
+                  <path d="m15.5 15.5 5.5 5.5M4 4l5.5 5.5" />
+                </svg>
+              </button>
+            </div>
+            <div id="rediscoverEntry"></div>
+          </section>
+        </section>
+
+        <section class="view" data-view="library">
+          <div class="filter-row" id="categoryFilters" role="tablist" aria-label="内容分类">
+            <button class="filter-chip active" data-category="all">全部</button>
+            <button class="filter-chip" data-category="note">笔记</button>
+            <button class="filter-chip" data-category="buy">想买</button>
+            <button class="filter-chip" data-category="watch">想看</button>
+            <button class="filter-chip" data-category="go">想去</button>
+            <button class="filter-chip" data-category="todo">待办</button>
+          </div>
+          <div class="stats-line">
+            <span id="libraryCount">0 个片段</span>
+            <select id="sortSelect" aria-label="排序方式">
+              <option value="newest">最近保存</option>
+              <option value="oldest">最早保存</option>
+              <option value="reminder">提醒优先</option>
+            </select>
+          </div>
+          <div class="card-list spacious" id="libraryEntries"></div>
+          <button class="secondary-button load-more hidden" id="loadMoreButton">加载更多</button>
+        </section>
+
+        <section class="view" data-view="reminders">
+          <div class="reminder-summary">
+            <div>
+              <span id="reminderTodayCount">0</span>
+              <small>今天</small>
+            </div>
+            <div>
+              <span id="reminderUpcomingCount">0</span>
+              <small>即将到来</small>
+            </div>
+            <div>
+              <span id="reminderDoneCount">0</span>
+              <small>已完成</small>
+            </div>
+          </div>
+          <section class="section-block">
+            <div class="section-heading compact">
+              <h2>今天</h2>
+            </div>
+            <div class="stack-list" id="remindersToday"></div>
+          </section>
+          <section class="section-block">
+            <div class="section-heading compact">
+              <h2>即将到来</h2>
+            </div>
+            <div class="stack-list" id="remindersUpcoming"></div>
+          </section>
+          <section class="section-block">
+            <div class="section-heading compact">
+              <h2>已完成</h2>
+              <button class="text-button" id="clearCompletedButton">清除记录</button>
+            </div>
+            <div class="stack-list muted-list" id="remindersDone"></div>
+          </section>
+        </section>
+
+        <section class="view" data-view="search">
+          <label class="search-box">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="7" />
+              <path d="m20 20-4-4" />
+            </svg>
+            <input id="searchInput" type="search" inputmode="search" placeholder="搜索标题、内容、标签…" autocomplete="off" />
+          </label>
+          <div class="search-tips" id="searchTips">
+            <p>可以试试</p>
+            <button data-search="杭州">杭州</button>
+            <button data-search="咖啡">咖啡</button>
+            <button data-search="本周提醒">本周提醒</button>
+          </div>
+          <div class="card-list spacious" id="searchResults"></div>
+        </section>
+
+        <section class="view" data-view="settings">
+          <section class="settings-group">
+            <p class="section-kicker">IPHONE</p>
+            <h2>安装与提醒</h2>
+            <button class="settings-row" id="installGuideButton">
+              <span class="settings-icon sage">⌂</span>
+              <span><strong>添加到主屏幕</strong><small>像普通 App 一样打开拾片</small></span>
+              <span>›</span>
+            </button>
+            <button class="settings-row" id="shortcutGuideButton">
+              <span class="settings-icon amber">⏰</span>
+              <span><strong>苹果提醒事项</strong><small>通过“拾片提醒”快捷指令创建系统提醒</small></span>
+              <span>›</span>
+            </button>
+          </section>
+
+          <section class="settings-group">
+            <p class="section-kicker">GITHUB</p>
+            <h2>私人仓库同步</h2>
+            <p class="settings-description">数据上传前会在本机加密。访问令牌和加密口令只保留到本次关闭页面。</p>
+            <form id="githubForm" class="settings-form">
+              <label>仓库所有者<input id="githubOwner" autocomplete="username" placeholder="例如 Jesehen" /></label>
+              <label>私人仓库<input id="githubRepo" placeholder="例如 shipian-data" /></label>
+              <label>分支<input id="githubBranch" value="main" /></label>
+              <label>细粒度访问令牌<input id="githubToken" type="password" autocomplete="off" placeholder="仅 Contents 读写权限" /></label>
+              <label>加密口令<input id="githubPassphrase" type="password" autocomplete="off" placeholder="至少 8 位，请妥善保管" /></label>
+              <div class="form-actions">
+                <button type="button" class="secondary-button" id="testGithubButton">测试连接</button>
+                <button type="button" class="primary-button" id="syncGithubButton">立即同步</button>
+              </div>
+              <button type="button" class="secondary-button" id="restoreGithubButton">从 GitHub 恢复较新内容</button>
+              <p class="sync-status" id="syncStatus">尚未连接</p>
+            </form>
+          </section>
+
+          <section class="settings-group">
+            <p class="section-kicker">STORAGE</p>
+            <h2>本地缓存</h2>
+            <div class="storage-meter">
+              <div class="storage-label"><span id="storageUsageLabel">正在计算…</span><span>上限 50MB</span></div>
+              <div class="meter-track"><span id="storageMeterFill"></span></div>
+            </div>
+            <button class="settings-row" id="clearSyncedImagesButton">
+              <span class="settings-icon blue">↧</span>
+              <span><strong>清理已同步图片</strong><small>保留记录，需要时可从 GitHub 恢复</small></span>
+              <span>›</span>
+            </button>
+            <button class="settings-row" id="exportButton">
+              <span class="settings-icon neutral">⇧</span>
+              <span><strong>导出本地备份</strong><small>生成可下载的 JSON 文件</small></span>
+              <span>›</span>
+            </button>
+            <label class="settings-row file-row">
+              <span class="settings-icon neutral">⇩</span>
+              <span><strong>导入本地备份</strong><small>合并已有数据，不覆盖较新的记录</small></span>
+              <span>›</span>
+              <input id="importInput" type="file" accept="application/json" />
+            </label>
+          </section>
+
+          <p class="app-version">拾片 0.1 · 数据由你掌控</p>
+        </section>
+      </main>
+
+      <nav class="bottom-nav" aria-label="主要导航">
+        <button class="nav-item active" data-target="today">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9H3Z" /><path d="M9 20v-6h6v6" /></svg>
+          <span>今天</span>
+        </button>
+        <button class="nav-item" data-target="library">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m4 6 8-3 8 3-8 3Z" /><path d="m4 11 8 3 8-3" /><path d="m4 16 8 3 8-3" /></svg>
+          <span>全部</span>
+        </button>
+        <button class="nav-add" id="navAddButton" aria-label="添加片段">＋</button>
+        <button class="nav-item" data-target="reminders">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" /><path d="M10 21h4" /></svg>
+          <span>提醒</span>
+        </button>
+        <button class="nav-item" data-target="search">
+          <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></svg>
+          <span>搜索</span>
+        </button>
+      </nav>
+    </div>
+
+    <dialog id="captureDialog" class="sheet-dialog">
+      <form id="captureForm" method="dialog">
+        <div class="sheet-handle"></div>
+        <div class="sheet-heading">
+          <button type="button" class="text-button" data-close-dialog="captureDialog">取消</button>
+          <h2 id="captureTitle">保存片段</h2>
+          <button type="submit" class="text-button strong">保存</button>
+        </div>
+        <input type="hidden" id="editingEntryId" />
+        <label class="capture-field">
+          <span>内容</span>
+          <textarea id="captureContent" rows="5" placeholder="粘贴链接、写下一句话，或记录一件事…" required></textarea>
+        </label>
+        <div class="detected-row">
+          <span class="category-badge note" id="detectedCategory">笔记</span>
+          <button type="button" class="detected-reminder hidden" id="detectedReminderButton"></button>
+        </div>
+        <div class="category-picker" id="categoryPicker" aria-label="内容分类">
+          <button type="button" data-category="note" class="active">笔记</button>
+          <button type="button" data-category="buy">想买</button>
+          <button type="button" data-category="watch">想看</button>
+          <button type="button" data-category="go">想去</button>
+          <button type="button" data-category="todo">待办</button>
+        </div>
+        <label class="capture-field compact-field">
+          <span>标题 <small>可选</small></span>
+          <input id="captureCustomTitle" placeholder="默认取内容第一行" />
+        </label>
+        <label class="capture-field compact-field">
+          <span>标签 <small>用空格分隔</small></span>
+          <input id="captureTags" placeholder="例如 杭州 咖啡" />
+        </label>
+        <div class="capture-grid">
+          <label class="capture-field compact-field">
+            <span>提醒时间 <small>可选</small></span>
+            <input id="captureReminder" type="datetime-local" />
+          </label>
+          <label class="capture-field compact-field">
+            <span>重复</span>
+            <select id="captureRecurrence">
+              <option value="none">不重复</option>
+              <option value="daily">每天</option>
+              <option value="weekly">每周</option>
+              <option value="monthly">每月</option>
+            </select>
+          </label>
+        </div>
+        <label class="attachment-picker">
+          <input id="captureImage" type="file" accept="image/*" />
+          <span>＋ 添加一张图片</span>
+          <small>自动压缩，单次只处理一张</small>
+        </label>
+        <div class="attachment-preview hidden" id="attachmentPreview">
+          <img alt="待保存图片预览" />
+          <button type="button" id="removeAttachmentButton">移除</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="detailDialog" class="sheet-dialog detail-dialog">
+      <div class="sheet-handle"></div>
+      <div class="sheet-heading">
+        <button type="button" class="text-button" data-close-dialog="detailDialog">关闭</button>
+        <h2>片段详情</h2>
+        <button type="button" class="text-button strong" id="editEntryButton">编辑</button>
+      </div>
+      <div id="detailContent"></div>
+    </dialog>
+
+    <dialog id="infoDialog" class="info-dialog">
+      <div class="info-icon" id="infoIcon">✓</div>
+      <h2 id="infoTitle">提示</h2>
+      <div id="infoBody"></div>
+      <button class="primary-button full" id="infoConfirmButton">知道了</button>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
