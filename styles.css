@@ -901,7 +901,8 @@ dialog::backdrop {
   justify-self: end;
 }
 
-.sheet-close-button {
+.sheet-close-button,
+.icon-button.small.sheet-close-button {
   width: 28px;
   min-width: 28px;
   max-width: 28px;
@@ -921,7 +922,8 @@ dialog::backdrop {
   color: var(--muted);
 }
 
-.sheet-close-button > svg {
+.sheet-close-button > svg,
+.icon-button.small.sheet-close-button > svg {
   display: block;
   width: 12px;
   min-width: 12px;
