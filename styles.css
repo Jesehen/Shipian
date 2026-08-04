@@ -903,20 +903,33 @@ dialog::backdrop {
 
 .sheet-close-button {
   width: 28px;
+  min-width: 28px;
+  max-width: 28px;
   height: 28px;
+  min-height: 28px;
+  max-height: 28px;
   padding: 0;
-  display: grid;
+  display: inline-grid;
   place-items: center;
   justify-self: start;
+  align-self: center;
+  overflow: hidden;
+  flex: 0 0 28px;
   border: 1px solid var(--line);
   border-radius: 50%;
   background: var(--surface);
   color: var(--muted);
 }
 
-.sheet-close-button svg {
+.sheet-close-button > svg {
+  display: block;
   width: 12px;
+  min-width: 12px;
+  max-width: 12px;
   height: 12px;
+  min-height: 12px;
+  max-height: 12px;
+  flex: 0 0 12px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
