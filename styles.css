@@ -902,8 +902,8 @@ dialog::backdrop {
 }
 
 .sheet-close-button {
-  width: 34px;
-  height: 34px;
+  width: 28px;
+  height: 28px;
   padding: 0;
   display: grid;
   place-items: center;
@@ -915,8 +915,8 @@ dialog::backdrop {
 }
 
 .sheet-close-button svg {
-  width: 17px;
-  height: 17px;
+  width: 12px;
+  height: 12px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
